@@ -2994,9 +2994,12 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   }
 }
 /* ZAPPY_POSTGEN_GUARD_HERO_FONT_CAP:index-hero */
-.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: min(var(--display-xl, 6rem), 6rem) !important; line-height: var(--leading-display, 1.05); }
+.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 48px !important; line-height: 1.2 !important; }
+@media (max-width: 1024px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 36px !important; }
+}
 @media (max-width: 768px) {
-  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: clamp(2rem, 9vw, 3rem) !important; }
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 28px !important; }
 }
 
 /* ZAPPY_POSTGEN_GUARD_HERO_TYPO:בית-hero (index-hero) — stripped 1 jarring hero headline effect(s) */
