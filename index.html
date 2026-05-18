@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>ייבוא צמיגי משאיות לישראל — סעאידה חוסאם</title>
+    <meta name="description" content="סעאידה חוסאם מתמחה בייבוא צמיגי משאיות לישראל עם מותגי AUFINE ו-TESCHE. פתרונות צמיגים מקצועיים לרכבים כבדים ושטח — איכות ללא פשרות לכל מוסך וספק.">
+    <meta name="keywords" content="ייבוא צמיגי משאיות לישראל, צמיגי AUFINE למשאיות, צמיגי רכב שטח TESCHE, ספק צמיגים למוסכים בישראל">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'ecdc127b-eac2-4e8c-a33c-8f16cc4974da',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="ייבוא צמיגי משאיות לישראל — סעאידה חוסאם">
+    <meta property="og:description" content="סעאידה חוסאם מתמחה בייבוא צמיגי משאיות לישראל עם מותגי AUFINE ו-TESCHE. פתרונות צמיגים מקצועיים לרכבים כבדים ושטח — איכות ללא פשרות לכל מוסך וספק.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ייבוא צמיגי משאיות לישראל — סעאידה חוסאם">
+    <meta name="twitter:description" content="סעאידה חוסאם מתמחה בייבוא צמיגי משאיות לישראל עם מותגי AUFINE ו-TESCHE. פתרונות צמיגים מקצועיים לרכבים כבדים ושטח — איכות ללא פשרות לכל מוסך וספק.">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+
+
+    <div class="mobile-search-panel" id="mobile-search-panel">
+      <div class="search-wrapper">
+        <input type="text" id="mobile-search-input" placeholder="חיפוש מוצרים..." autocomplete="off">
+        <button class="search-submit" id="mobile-search-submit" title="חיפוש">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        </button>
+        <button class="close-search" id="close-mobile-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="search-results" id="mobile-search-results"></div>
+    </div>
+  
+<script>window.ZAPPY_WEBSITE_ID = "ecdc127b-eac2-4e8c-a33c-8f16cc4974da";window.ZAPPY_API_BASE = "https://api.zappy5.com";</script><a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site-----image-1.webp" alt="סעאידה חוסאם"></a>
+    </div><ul class="nav-menu" id="navMenu">
+
+    <li class="menu-item-has-children zappy-products-dropdown">
+      <a href="/products">
+        מוצרים
+        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      </a>
+      <ul class="sub-menu" id="zappy-nav-category-links">
+        <li><a href="/products">כל המוצרים</a></li>
+        <!-- Categories will be loaded dynamically -->
+      </ul>
+    </li>
+  <li><a href="/">בית</a></li><li><a href="/brand-lines">קווי מותג</a></li><li><a href="/distribution-quality">הפצה ואיכות</a></li><li><a href="/contact">צור קשר</a></li></ul><div class="nav-ecommerce-icons nav-icons-left"><div class="nav-search-box">
+    <input type="text" class="nav-search-input" id="nav-search-input" placeholder="חיפוש מוצרים..." autocomplete="off">
+    <button class="nav-search-btn" id="nav-search-btn" title="חיפוש">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+    </button>
+    <div class="nav-search-results" id="nav-search-results"></div>
+  </div></div><div class="nav-ecommerce-icons nav-icons-right"><button class="nav-search-toggle" id="mobile-search-toggle" title="חיפוש"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg></button></div></div>
+
+    
+
+    
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main">
+    <section data-band-index="0" class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim">
+  <!-- Background Image -->
+  <div class="index-hero-bg">
+    <img loading="eager" fetchpriority="high" data-hero-bg="true" data-placeholder="index-hero-image-1" data-context="Wide-angle cinematic shot of a bright logistics yard at golden hour: a large commercial truck with oversized tires parked prominently on the right, a rugged black SUV/4x4 off-road vehicle on the left, clean asphalt surface, open sky, professional fleet photography feel, high contrast, vivid natural daylight, Israeli industrial setting" width="1440" height="900" src="/assets/site-index-hero-image-1.webp" alt="צמיגי משאיות AUFINE וצמיגי שטח TESCHE – ייבוא ישיר לישראל" class="index-hero-img">
+  </div>
+
+  <!-- Scrim Overlay -->
+  <div class="index-hero-scrim" aria-hidden="true"></div>
+
+  <!-- Decorative tire-tread SVG motif -->
+  <svg class="index-hero-tread-motif" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <pattern id="tread" x="0" y="0" width="40" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+        <rect x="0" y="6" width="40" height="8" rx="2" fill="#1E3A5F" opacity="1"></rect>
+      </pattern>
+    </defs>
+    <rect width="320" height="320" fill="url(#tread)"></rect>
+  </svg>
+
+  <!-- Content Card -->
+  <div class="index-hero-container">
+    <div class="index-hero-card">
+      <!-- Eyebrow label -->
+      <span class="index-hero-eyebrow">ייבוא צמיגים מקצועי לישראל</span>
+
+      <!-- H1 -->
+      <h1 class="index-hero-h1">סעאידה חוסאם –<br>ייבוא צמיגי משאיות וצמיגי שטח</h1>
+
+      <!-- Subtitle H3 -->
+      <h3 class="index-hero-subtitle">מפיצים בלעדיים של <strong>AUFINE</strong> לצמיגי משאיות מסחריות ו-<strong>TESCHE</strong> לרכבי שטח ו-SUV</h3>
+
+      <!-- Divider accent -->
+      <div class="index-hero-accent-line" aria-hidden="true"></div>
+
+      <!-- Brand pills -->
+      <div class="index-hero-brands">
+        <span class="index-hero-brand-pill">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line></svg>
+          AUFINE – משאיות
+        </span>
+        <span class="index-hero-brand-pill">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line></svg>
+          TESCHE – שטח / SUV
+        </span>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="index-hero-ctas">
+        <a href="/contact" class="index-hero-btn-primary">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          פנה אלינו לפרטי הפצה
+        </a>
+        <a href="/brands" class="index-hero-btn-secondary">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          סקירת המותגים
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Divider -->
+  <div class="index-hero-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,52 Q120,38 240,50 T480,42 Q600,36 720,48 T960,40 Q1080,34 1200,46 T1440,38 L1440,80 Z" fill="#FAFAF8"></path>
+      <path d="M0,80 L0,62 Q180,50 360,60 T720,54 Q900,48 1080,58 T1440,52 L1440,80 Z" fill="#FAFAF8" opacity="0.6"></path>
+    </svg>
+  </div>
+</section>
+
+    <section class="featured-products-section" id="featured-products" data-zappy-dynamic="true">
+      <div class="container">
+        <h2 class="section-title">מוצרים מומלצים</h2>
+        <div class="product-grid featured-grid" id="zappy-featured-products">
+          <div class="loading-products">טוען מוצרים...</div>
+        </div>
+        <div class="view-all-products">
+          <a href="/products" class="btn btn-primary">צפה בכל המוצרים →</a>
+        </div>
+      </div>
+    </section>
+  
+
+    <section class="featured-categories-section" id="featured-categories" data-zappy-dynamic="true">
+      <div class="container">
+        <h2 class="section-title">קנו לפי קטגוריה</h2>
+        <div class="category-blocks" id="zappy-featured-categories">
+          <div class="loading-categories">טוען מוצרים...</div>
+        </div>
+      </div>
+    </section>
+  
+
+<section data-band-index="1" class="index-brand-pillars-section" data-layout-spec="בית-brand-pillars" dir="rtl">
+  <!-- Decorative dot-grid background -->
+  <div class="ibp-dot-grid" aria-hidden="true"></div>
+
+  <div class="ibp-container">
+    <!-- Section Header -->
+    <header class="ibp-header">
+      <span class="ibp-eyebrow">שני מותגים. פתרון אחד.</span>
+      <h2 class="ibp-title">עמודי הייבוא שלנו</h2>
+      <p class="ibp-intro">סעאידה חוסאם מתמחה בייבוא צמיגי משאיות לישראל תחת מותג AUFINE וצמיגי רכב שטח תחת מותג TESCHE — שני קווי מוצר מובחנים, מותאמים לצרכים שונים, עם רמת אמינות זהה.</p>
+    </header>
+
+    <nav class="zappy-catalog-menu rtl" id="zappy-catalog-menu" dir="rtl" style="display:none">
+      <div class="catalog-menu-container">
+        <a href="/products" class="catalog-menu-item catalog-menu-all">כל המוצרים</a>
+        <div class="catalog-menu-categories" id="zappy-category-links">
+          <!-- Categories will be loaded dynamically -->
+        </div>
+      </div>
+    </nav>
+  
+
+    <!-- Brand Cards Grid -->
+    <div class="ibp-cards-grid">
+
+      <!-- Card 1: AUFINE -->
+      <article class="ibp-card ibp-card--aufine">
+        <div class="ibp-card-accent ibp-card-accent--aufine"></div>
+        <div class="ibp-card-inner">
+          <div class="ibp-card-top">
+            <div class="ibp-brand-icon ibp-brand-icon--aufine" aria-hidden="true">
+              <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="20" cy="20" r="10" stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="20" cy="20" r="3" fill="currentColor"></circle>
+                <line x1="20" y1="2" x2="20" y2="10" stroke="currentColor" stroke-width="2"></line>
+                <line x1="20" y1="30" x2="20" y2="38" stroke="currentColor" stroke-width="2"></line>
+                <line x1="2" y1="20" x2="10" y2="20" stroke="currentColor" stroke-width="2"></line>
+                <line x1="30" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="2"></line>
+              </svg>
+            </div>
+            <div class="ibp-brand-label">
+              <span class="ibp-category-tag">צמיגי משאיות</span>
+              <h3 class="ibp-brand-name">AUFINE</h3>
+            </div>
+          </div>
+
+          <figure class="ibp-card-image-wrap">
+            <img loading="lazy" decoding="async" data-placeholder="index-brand-pillars-image-1" data-context="Professional AUFINE brand heavy-duty truck tire close-up shot, large commercial vehicle wheel with deep tread pattern on industrial warehouse floor, navy blue and steel tones, corporate product photography style" width="600" height="340" src="/assets/site-index-brand-pillars-image-1.webp" alt="צמיגי משאיות AUFINE — עמידות ואמינות לצי מסחרי" class="ibp-card-image">
+          </figure>
+
+          <p class="ibp-card-desc">צמיגי AUFINE למשאיות מיועדים לתמוך בעומסים כבדים, לשמור על יציבות בדרכים ארוכות ולתת ביצועים עקביים לצי מסחרי בכל עונות השנה. מוצר אמין לקבלנים, חברות הובלה ומנהלי ציים.</p>
+
+          <ul class="ibp-specs-list">
+            <li class="ibp-spec-item">
+              <span class="ibp-spec-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span>תמיכה בעומסים כבדים ומשאות גבוהים</span>
+            </li>
+            <li class="ibp-spec-item">
+              <span class="ibp-spec-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span>עמידות גבוהה לריצות ארוכות ורציפות</span>
+            </li>
+            <li class="ibp-spec-item">
+              <span class="ibp-spec-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span>מתאים לצי מסחרי ולהובלה בין-עירונית</span>
+            </li>
+          </ul>
+
+          <a href="/aufine" class="ibp-cta-link">
+            <span>לפרטים על צמיגי AUFINE</span>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 8H3M6 5L3 8L6 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2: TESCHE -->
+      <article class="ibp-card ibp-card--tesche">
+        <div class="ibp-card-accent ibp-card-accent--tesche"></div>
+        <div class="ibp-card-inner">
+          <div class="ibp-card-top">
+            <div class="ibp-brand-icon ibp-brand-icon--tesche" aria-hidden="true">
+              <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="20" cy="20" r="10" stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="20" cy="20" r="3" fill="currentColor"></circle>
+                <path d="M20 2 L22 10 L20 10 L18 10 Z" fill="currentColor"></path>
+                <path d="M20 38 L22 30 L20 30 L18 30 Z" fill="currentColor"></path>
+                <path d="M2 20 L10 22 L10 20 L10 18 Z" fill="currentColor"></path>
+                <path d="M38 20 L30 22 L30 20 L30 18 Z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <div class="ibp-brand-label">
+              <span class="ibp-category-tag ibp-category-tag--tesche">צמיגי רכב שטח</span>
+              <h3 class="ibp-brand-name">TESCHE</h3>
+            </div>
+          </div>
+
+          <figure class="ibp-card-image-wrap">
+            <img loading="lazy" decoding="async" data-placeholder="index-brand-pillars-image-2" data-context="TESCHE brand SUV off-road tire mounted on rugged 4x4 vehicle, aggressive tread pattern close-up, outdoor rocky terrain background, warm earthy tones with accent orange highlights, dynamic product photography" width="600" height="340" src="/assets/site-index-brand-pillars-image-2.webp" alt="צמיגי רכב שטח TESCHE — אחיזה ועמידות בכל שטח" class="ibp-card-image">
+          </figure>
+
+          <p class="ibp-card-desc">צמיגי TESCHE לרכבי שטח ו-SUV מציעים אחיזה מעולה בכל סוגי הקרקע — מאספלט עירוני ועד שבילים מחוספסים ושטח פתוח. מיועדים לנהגים שדורשים ביצועים ללא פשרות בכל תנאי דרך.</p>
+
+          <ul class="ibp-specs-list">
+            <li class="ibp-spec-item">
+              <span class="ibp-spec-icon ibp-spec-icon--tesche" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span>אחיזה מקסימלית בשטח ובכביש רטוב</span>
+            </li>
+            <li class="ibp-spec-item">
+              <span class="ibp-spec-icon ibp-spec-icon--tesche" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span>עמידות גבוהה בתנאי שטח קשים ומחוספסים</span>
+            </li>
+            <li class="ibp-spec-item">
+              <span class="ibp-spec-icon ibp-spec-icon--tesche" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+              <span>מגוון מידות לרכבי SUV ופנאי שטח</span>
+            </li>
+          </ul>
+
+          <a href="/tesche" class="ibp-cta-link ibp-cta-link--tesche">
+            <span>לפרטים על צמיגי TESCHE</span>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 8H3M6 5L3 8L6 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+    <!-- /Brand Cards Grid -->
+  </div>
+
+  <!-- Bottom SVG Divider: curved sweep into dark comparison section -->
+  <div class="ibp-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,70 L0,38 Q150,10 300,28 T600,18 Q750,8 900,26 T1200,20 L1200,70 Z" fill="#1B3A5C"></path>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="2" class="index-comparison-section" data-layout-spec="בית-comparison" dir="rtl">
+  <!-- Decorative dot grid -->
+  <div class="icc-dot-grid" aria-hidden="true"></div>
+
+  <div class="icc-container">
+    <!-- Section Header -->
+    <div class="icc-header">
+      <span class="icc-label">שני מותגים. פתרון אחד.</span>
+      <h2 class="icc-title">AUFINE מול TESCHE — מה מתאים לך?</h2>
+      <p class="icc-subtitle">כל מותג תוכנן לסביבת נהיגה שונה. השוואה ישירה תעזור לך לבחור את הצמיג הנכון לצי שלך.</p>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="icc-table-wrapper">
+      <table class="icc-table" role="table">
+        <thead>
+          <tr class="icc-table-head-row">
+            <th class="icc-th icc-th-label" scope="col">קטגוריה</th>
+            <th class="icc-th icc-th-brand icc-th-aufine" scope="col">
+              <div class="icc-brand-badge icc-brand-aufine">
+                <span class="icc-brand-icon"><i class="fa-solid fa-truck" aria-hidden="true"></i></span>
+                <span class="icc-brand-name">AUFINE</span>
+                <span class="icc-brand-sub">צמיגי משאיות</span>
+              </div>
+            </th>
+            <th class="icc-th icc-th-brand icc-th-tesche" scope="col">
+              <div class="icc-brand-badge icc-brand-tesche">
+                <span class="icc-brand-icon"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+                <span class="icc-brand-name">TESCHE</span>
+                <span class="icc-brand-sub">צמיגי רכב שטח</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="icc-row">
+            <td class="icc-td icc-td-label">
+              <span class="icc-row-icon"><i class="fa-solid fa-car-burst" aria-hidden="true"></i></span>
+              סוג הרכב
+            </td>
+            <td class="icc-td icc-td-aufine">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              משאיות כבדות, אוטובוסים, רכבי הובלה מסחריים
+            </td>
+            <td class="icc-td icc-td-tesche">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              רכבי SUV, פיקאפים, רכבי שטח ופנאי
+            </td>
+          </tr>
+          <tr class="icc-row icc-row-alt">
+            <td class="icc-td icc-td-label">
+              <span class="icc-row-icon"><i class="fa-solid fa-map" aria-hidden="true"></i></span>
+              סביבת הפעלה
+            </td>
+            <td class="icc-td icc-td-aufine">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              כבישים ראשיים, מסלולי הפצה ולוגיסטיקה, עומסים כבדים
+            </td>
+            <td class="icc-td icc-td-tesche">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              שטח פתוח, אבנים, בוץ, כביש מעורב ותנאי קיצון
+            </td>
+          </tr>
+          <tr class="icc-row">
+            <td class="icc-td icc-td-label">
+              <span class="icc-row-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></span>
+              פרופיל הלקוח
+            </td>
+            <td class="icc-td icc-td-aufine">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              מנהלי צי, חברות הובלה, מוסכי משאיות ומפיצים
+            </td>
+            <td class="icc-td icc-td-tesche">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              מוסכי רכב פרטי, סוחרי רכב שטח, נהגי שטח מקצועיים
+            </td>
+          </tr>
+          <tr class="icc-row icc-row-alt">
+            <td class="icc-td icc-td-label">
+              <span class="icc-row-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span>
+              יתרון מרכזי
+            </td>
+            <td class="icc-td icc-td-aufine">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              עמידות גבוהה, אורך חיים מרבי, ביצועים תחת עומס
+            </td>
+            <td class="icc-td icc-td-tesche">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              אחיזה בשטח, יציבות בפניות, ביצועים בתנאי מזג אוויר קשים
+            </td>
+          </tr>
+          <tr class="icc-row">
+            <td class="icc-td icc-td-label">
+              <span class="icc-row-icon"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i></span>
+              זמינות מלאי
+            </td>
+            <td class="icc-td icc-td-aufine">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              מלאי קבוע ומגוון מידות לצרכים מסחריים שוטפים
+            </td>
+            <td class="icc-td icc-td-tesche">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              מגוון רחב של מידות ודגמים לרכבי SUV ושטח
+            </td>
+          </tr>
+          <tr class="icc-row icc-row-alt">
+            <td class="icc-td icc-td-label">
+              <span class="icc-row-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+              ערך לעסק
+            </td>
+            <td class="icc-td icc-td-aufine">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              הפחתת עלויות תחזוקה ועצירות בלתי מתוכננות
+            </td>
+            <td class="icc-td icc-td-tesche">
+              <span class="icc-check"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              שביעות רצון לקוח גבוהה ומכירות חוזרות
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Reassurance paragraph -->
+    <div class="icc-reassurance">
+      <p>סעאידה חוסאם מלווה ספקים ומוסכים בתהליך הבחירה מתחילתו ועד סופו — מזיהוי הצורך ועד אספקה שוטפת. כמייבאים ישירים של <strong>צמיגי AUFINE למשאיות</strong> ו<strong>צמיגי TESCHE לרכב שטח</strong>, אנו מבטיחים עקביות בהיצע, מחירים תחרותיים ותמיכה מקצועית לאורך כל הדרך.</p>
+    </div>
+
+    <!-- Capability Strip -->
+    <div class="icc-capability-strip">
+      <div class="icc-cap-item">
+        <div class="icc-cap-icon"><i class="fa-solid fa-globe" aria-hidden="true"></i></div>
+        <div class="icc-cap-content">
+          <h3 class="icc-cap-title">ייבוא ישיר</h3>
+          <p class="icc-cap-text">שרשרת אספקה קצרה ומהימנה ללא מתווכים מיותרים</p>
+        </div>
+      </div>
+      <div class="icc-cap-divider" aria-hidden="true"></div>
+      <div class="icc-cap-item">
+        <div class="icc-cap-icon"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
+        <div class="icc-cap-content">
+          <h3 class="icc-cap-title">ייעוץ מקצועי</h3>
+          <p class="icc-cap-text">הכוונה מדויקת לפי סוג הרכב, עומס ותנאי שטח</p>
+        </div>
+      </div>
+      <div class="icc-cap-divider" aria-hidden="true"></div>
+      <div class="icc-cap-item">
+        <div class="icc-cap-icon"><i class="fa-solid fa-handshake" aria-hidden="true"></i></div>
+        <div class="icc-cap-content">
+          <h3 class="icc-cap-title">שותפות ארוכת טווח</h3>
+          <p class="icc-cap-text">תנאים מותאמים לספקים ומוסכים עם נפח קבוע</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Divider: stepped transition to next section -->
+  <div class="icc-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,64 L0,32 L300,32 L300,48 L600,48 L600,20 L900,20 L900,40 L1200,40 L1200,64 Z" fill="#FAFAF8"></path>
+      <path d="M0,64 L0,48 L300,48 L300,56 L600,56 L600,36 L900,36 L900,52 L1200,52 L1200,64 Z" fill="#FAFAF8"></path>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="3" class="index-testimonials-section" dir="rtl" data-layout-spec="בית-testimonials">
+  <!-- Dot grid decoration -->
+  <div class="index-testimonials-section__dot-grid" aria-hidden="true"></div>
+
+  <div class="index-testimonials-section__container">
+
+    <!-- Section Header -->
+    <header class="index-testimonials-section__header">
+      <span class="index-testimonials-section__eyebrow">מה אומרים עלינו</span>
+      <h2 class="index-testimonials-section__title">שותפים עסקיים שסומכים עלינו</h2>
+      <p class="index-testimonials-section__subtitle">ספק צמיגים למוסכים בישראל — קשרי עבודה ארוכי טווח המבוססים על אמינות, מלאי יציב ושירות מקצועי.</p>
+    </header>
+
+    <!-- Testimonial Cards Grid -->
+    <div class="index-testimonials-section__grid">
+
+      <!-- Card 1 -->
+      <article class="index-testimonials-section__card">
+        <div class="index-testimonials-section__quote-mark" aria-hidden="true">”</div>
+        <blockquote class="index-testimonials-section__quote">
+          <p>מאז שהתחלנו לעבוד עם סעאידה חוסאם, הסדר של הצמיגים הפך לפשוט ואמין. המלאי תמיד זמין, והמחירים תחרותיים — בדיוק מה שמוסך עסוק צריך.</p>
+        </blockquote>
+        <footer class="index-testimonials-section__card-footer">
+          <div class="index-testimonials-section__avatar" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="index-testimonials-section__source">
+            <strong class="index-testimonials-section__name">אחמד קאסם</strong>
+            <span class="index-testimonials-section__role">בעלים, מוסך אחמד קאסם</span>
+            <span class="index-testimonials-section__biz-type">מוסך פרטי · שירות משאיות</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="index-testimonials-section__card">
+        <div class="index-testimonials-section__quote-mark" aria-hidden="true">”</div>
+        <blockquote class="index-testimonials-section__quote">
+          <p>צמיגי AUFINE שאנחנו מזמינים דרכם עומדים בכל הסטנדרטים של הצי שלנו. התקשורת מהירה, המשלוחים מגיעים בזמן, ואנחנו יודעים שיש עם מי לדבר כשצריך.</p>
+        </blockquote>
+        <footer class="index-testimonials-section__card-footer">
+          <div class="index-testimonials-section__avatar" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="index-testimonials-section__source">
+            <strong class="index-testimonials-section__name">יוסף אבו-עמר</strong>
+            <span class="index-testimonials-section__role">מנהל לוגיסטיקה, חברת הובלות</span>
+            <span class="index-testimonials-section__biz-type">מפעיל צי · הובלה כבדה</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="index-testimonials-section__card">
+        <div class="index-testimonials-section__quote-mark" aria-hidden="true">”</div>
+        <blockquote class="index-testimonials-section__quote">
+          <p>צמיגי TESCHE לרכבי שטח הם מוצר שהלקוחות שלנו מבקשים בשם. הידע המקצועי של סעאידה חוסאם בשני המותגים נותן לנו ביטחון מלא בהמלצות שלנו.</p>
+        </blockquote>
+        <footer class="index-testimonials-section__card-footer">
+          <div class="index-testimonials-section__avatar" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="index-testimonials-section__source">
+            <strong class="index-testimonials-section__name">נדאל חלבי</strong>
+            <span class="index-testimonials-section__role">מנהל מכירות, סוכנות רכב</span>
+            <span class="index-testimonials-section__biz-type">סוכנות רכב · רכבי שטח ו-SUV</span>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+    <!-- End Grid -->
+
+    <!-- Trust Strip -->
+    <div class="index-testimonials-section__trust-strip">
+      <div class="index-testimonials-section__trust-item">
+        <i class="fa-solid fa-shield-halved index-testimonials-section__trust-icon" aria-hidden="true"></i>
+        <span class="index-testimonials-section__trust-text">יבואן מורשה ומוכר בישראל</span>
+      </div>
+      <div class="index-testimonials-section__trust-divider" aria-hidden="true"></div>
+      <div class="index-testimonials-section__trust-item">
+        <i class="fa-solid fa-boxes-stacked index-testimonials-section__trust-icon" aria-hidden="true"></i>
+        <span class="index-testimonials-section__trust-text">מלאי זמין לאספקה מהירה</span>
+      </div>
+      <div class="index-testimonials-section__trust-divider" aria-hidden="true"></div>
+      <div class="index-testimonials-section__trust-item">
+        <i class="fa-solid fa-headset index-testimonials-section__trust-icon" aria-hidden="true"></i>
+        <span class="index-testimonials-section__trust-text">שירות לקוחות מקצועי ומהיר</span>
+      </div>
+    </div>
+    <!-- End Trust Strip -->
+
+    <!-- Bottom Callout Divider Block -->
+    <div class="index-testimonials-section__callout-block">
+      <div class="index-testimonials-section__callout-accent-line" aria-hidden="true"></div>
+      <div class="index-testimonials-section__callout-content">
+        <p class="index-testimonials-section__callout-text">מעוניינים להפוך לשותפים עסקיים? צרו קשר עוד היום ונמצא יחד את הפתרון המתאים לצרכים שלכם.</p>
+        <a href="#contact" class="index-testimonials-section__callout-btn btn-ctaOrange">
+          <span>דברו איתנו</span>
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section data-band-index="4" class="index-cta-section" data-layout-spec="בית-cta" dir="rtl">
+  <!-- Decorative dot grid -->
+  <div class="index-cta-dot-grid" aria-hidden="true"></div>
+  <!-- Decorative diagonal stripe -->
+  <div class="index-cta-diagonal-stripe" aria-hidden="true"></div>
+
+  <div class="index-cta-container">
+    <div class="index-cta-inner">
+      <div class="index-cta-eyebrow">שותפות עסקית</div>
+      <h2 class="index-cta-heading">מוסכים, מנהלי צי ורשתות רכב — <br>בואו נדבר על האספקה שלכם</h2>
+      <p class="index-cta-desc">אנו מייבאים צמיגי משאיות מבית AUFINE וצמיגי רכב שטח מבית TESCHE לשוק הישראלי. אם אתם מחפשים ספק צמיגים אמין למוסכים, לצי רכב או לסוכנות — נשמח להתאים עבורכם פתרון מלא.</p>
+      <div class="index-cta-actions">
+        <a href="/contact" class="index-cta-btn-primary">
+          <i class="fa-solid fa-envelope"></i>
+          צרו קשר עכשיו
+        </a>
+        <a href="/distribution" class="index-cta-btn-secondary">
+          <i class="fa-solid fa-truck"></i>
+          מידע על הפצה
+        </a>
+      </div>
+      <div class="index-cta-trust-row">
+        <div class="index-cta-trust-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>יבואן מורשה</span>
+        </div>
+        <div class="index-cta-trust-item">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>מלאי זמין</span>
+        </div>
+        <div class="index-cta-trust-item">
+          <i class="fa-solid fa-handshake"></i>
+          <span>תנאים לעסקים</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer" dir="rtl" aria-label="כותרת תחתונה של האתר">
+  <div class="footer-top">
+    <div class="footer-container">
+
+      <!-- Column 1: Company Info -->
+      <div class="footer-col footer-brand">
+        <img src="/assets/tire-import-distribution-logo.webp" alt="סעאידה חוסאם" class="logo">
+        <p class="footer-tagline">יבוא והפצה של צמיגים מהמותגים המובילים בעולם — AUFINE למשאיות ו-TESCHE לשטח ו-SUV. מחויבים לאיכות, אמינות ושירות מקצועי לסוחרים ומפיצים.</p>
+        <div class="footer-badge"><i class="fas fa-shield-alt"></i> מוצרים מאושרים ומוסמכים</div>
+        <div class="footer-badge"><i class="fas fa-truck"></i> הפצה ארצית מהירה</div>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col footer-links-col">
+        <h3 class="footer-heading"><span class="heading-accent"></span>ניווט מהיר</h3>
+        <ul class="footer-links" aria-label="קישורי ניווט מהיר">
+          <li><a href="/">בית</a></li>
+          <li><a href="/brand-lines">קווי מותג</a></li>
+          <li><a href="/distribution-quality">הפצה ואיכות</a></li>
+          <li><a href="/contact">צור קשר</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="footer-col footer-contact-col">
+        <h3 class="footer-heading"><span class="heading-accent"></span>פרטי יצירת קשר</h3>
+        <ul class="footer-contact" aria-label="פרטי קשר">
+          <li>
+            <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+            <span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span>
+          </li>
+          <li>
+            <span class="contact-icon"><i class="fas fa-phone"></i></span>
+            <span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span>
+          </li>
+          <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span class="contact-text">[business_address]</span></a></li>
+        </ul>
+        <div class="footer-hours">
+          <h4 class="hours-heading"><i class="fas fa-clock"></i> שעות פעילות</h4>
+          <div class="hours-row"><span class="hours-day">ראשון – חמישי</span><span class="hours-time">08:00 – 18:00</span></div>
+          <div class="hours-row"><span class="hours-day">שישי</span><span class="hours-time">08:00 – 13:00</span></div>
+          <div class="hours-row"><span class="hours-day">שבת</span><span class="hours-time closed">סגור</span></div>
+        </div>
+      </div>
+
+      <!-- Column 4: Social Media -->
+      <div class="footer-col footer-social-col">
+        <h3 class="footer-heading"><span class="heading-accent"></span>עקבו אחרינו</h3>
+        <p class="footer-social-text">הישארו מעודכנים במוצרים חדשים, מבצעים ועדכוני מותג.</p>
+        <div class="footer-social-icons" aria-label="רשתות חברתיות">
+          
+          
+          
+        </div>
+        <div class="footer-cta">
+          <a href="/contact" class="footer-cta-btn">פנו אלינו עכשיו</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="footer-divider-wrap">
+    <div class="footer-container">
+      <div class="footer-divider"></div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <div class="footer-container footer-bottom-inner">
+      <p class="footer-copyright">© 2026 סעאידה חוסאם. כל הזכויות שמורות.</p>
+      <div class="footer-legal">
+        <a href="/privacy">מדיניות פרטיות</a>
+        <span class="legal-sep" aria-hidden="true">|</span>
+        <a href="/terms">תנאי שימוש</a><span class="separator">|</span>
+            <a href="/return-policy" aria-label="מדיניות החזרות">
+              מדיניות החזרות
+            </a>
+        <span class="legal-sep" aria-hidden="true">|</span>
+        <a href="/accessibility">נגישות</a>
+        <span class="legal-sep" aria-hidden="true">|</span>
+        <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body>
+</html>

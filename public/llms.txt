@@ -1,0 +1,84 @@
+# סעאידה חוסאם — Generative Engine Optimization Map
+
+> Saida Hussam is a tire import business specializing in two distinct product lines: AUFINE-brand truck tires and TESCHE-brand SUV/off-road tires. The brand operates in the heavy-duty and off-road vehicle tire market, positioning itself as a multi-brand importer catering to both commercial transport and rugged terrain driving needs.
+
+---
+
+## Pages
+
+### בית
+https://example.com
+סעאידה חוסאם מתמחה בייבוא צמיגי משאיות לישראל עם מותגי AUFINE ו-TESCHE. פתרונות צמיגים מקצועיים לרכבים כבדים ושטח — איכות ללא פשרות לכל מוסך וספק.
+
+### קווי מותג
+https://example.com/brand-lines
+גלה את קווי המותג הבלעדיים: צמיגי AUFINE למשאיות כבדות וצמיגי TESCHE לרכבי שטח. כל מותג מהנדס לביצועים מקסימליים בתנאי הדרך הקשים ביותר בישראל.
+
+### הפצה ואיכות
+https://example.com/distribution-quality
+מערך הפצה מתקדם של צמיגים ברחבי ישראל עם בקרת איכות קפדנית. ספק צמיגים למוסכים בישראל עם אספקה מהירה, מלאי יציב ותמיכה מקצועית לכל לקוח עסקי.
+
+### צור קשר
+https://example.com/contact
+רוצה להפוך לספק או לקוח של צמיגי AUFINE ו-TESCHE? צור קשר עם סעאידה חוסאם עוד היום וקבל הצעת מחיר מותאמת לצרכי הייבוא וההפצה שלך בישראל.
+
+### Products
+https://example.com/products
+המוצרים שלנו - סעאידה חוסאם
+
+### Product Detail
+https://example.com/product/:slug
+פרטי המוצר - סעאידה חוסאם
+
+### Category
+https://example.com/category/:slug
+מוצרים - סעאידה חוסאם
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## Products
+
+_No products are currently configured._
+
+---
+
+# Business Context (for LLM understanding)
+
+## About סעאידה חוסאם
+Saida Hussam is a tire import business specializing in two distinct product lines: AUFINE-brand truck tires and TESCHE-brand SUV/off-road tires. The brand operates in the heavy-duty and off-road vehicle tire market, positioning itself as a multi-brand importer catering to both commercial transport and rugged terrain driving needs.
+
+## Services/Products
+- ייבוא צמיגי משאיות מהמותג AUFINE
+- ייבוא צמיגי רכב שטח מהמותג TESCHE
+
+## Target Audience
+- בעלי מוסכים מקומיים
+- מנהלי ציי רכבים
+- סוכנויות רכב
+
+## Industry
+Tire Import & Distribution
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://example.com/sitemap.xml
+- Robots: https://example.com/robots.txt
+- Flattened page text (for LLMs): https://example.com/llms-full.txt
+- Products (JSON): https://example.com/products.json
+- Products (Google Merchant RSS): https://example.com/product-feed.xml
